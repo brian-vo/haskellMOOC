@@ -51,7 +51,7 @@ takeFinal n xs
 updateAt :: Int -> a -> [a] -> [a]
 updateAt i x xs 
         | length xs == 1 = [x]
-        | i == 0 = [x] ++ drop 1 xs
+        | i == 0 = x : drop 1 xs
         | otherwise = take i xs ++ [x] ++ drop (i+1) xs
 
 
