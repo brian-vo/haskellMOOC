@@ -340,10 +340,21 @@ inc (O b) = I b
 inc (I b) = O (inc b)
 
 prettyPrint :: Bin -> String
-prettyPrint = todo
+prettyPrint End = ""
+prettyPrint input = case input of 
+                                (O a) -> prettyPrint a ++ "0"
+                                (I a) -> prettyPrint a ++ "1"
 
 fromBin :: Bin -> Int
-fromBin = todo
+fromBin inpt = decode inpt 1 0
+        where decode End sig cur = cur
+              decode input sig cur = case input of 
+                                                (O a) -> decode a (sig*2) cur
+                                                (I a) -> decode a (sig*2) (cur + sig)         
 
 toBin :: Int -> Bin
-toBin = todo
+toBin 0 = O End
+toBin input = recursive input End
+            where recursive counter bin
+                                    | counter == 0 = bin
+                                    | otherwise = recursive (counter-1) (inc bin)
